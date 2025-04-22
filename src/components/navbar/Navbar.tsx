@@ -26,6 +26,7 @@ return (
             >
                 Gerenciar clientes
             </Link>
+            
             <Link
                 to="/categorias"
                 className="text-1xl font-semibold text-[#FF8000]"
