@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import { Produto } from "../../models/Produto";
-import { Link, Search } from "lucide-react";
+import { Search } from "lucide-react";
+import { Link } from "react-router-dom";
 import { listar } from "../../services/Service";
 import CardProduto from "./cardproduto/CardProduto";
 
@@ -56,8 +57,18 @@ function ListarProdutos() {
                 />
             </div>
             ) : (
-                <div className="flex w-auto pt-[140px] min-h-screen">
+                <div className="flex w-auto pt-[100px] min-h-screen">
                     <div className="flex-1 px-8">
+                        {/* Link para cadastrar categoria centralizado */}
+                        <div className="flex justify-center mb-6">
+                            <Link
+                                to="/cadastrarproduto"
+                                className="text-white bg-[#FF8000] px-6 py-3 rounded-xl shadow-md text-sm font-semibold hover:bg-[#e67300] transition-colors duration-300"
+                            >
+                                Cadastre seu cliente
+                            </Link>
+                        </div>
+
                         {/* Título centralizado */}
                         <h1 className="text-3xl font-bold text-[#FF8000] mb-6 text-center">
                             Busque seus clientes
