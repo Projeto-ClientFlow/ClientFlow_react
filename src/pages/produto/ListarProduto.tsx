@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
-import { Produto } from "../../models/Produto";
 import { Search } from "lucide-react";
 import { listar } from "../../services/Service";
 import CardProduto from "./cardproduto/CardProduto";
+import Produto from "../../models/Produto";
 
 function ListarProdutos() {
 

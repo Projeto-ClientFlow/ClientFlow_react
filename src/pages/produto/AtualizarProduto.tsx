@@ -1,82 +1,184 @@
-import { NumericFormat } from 'react-number-format';
-import './AtualizarProduto.css'
+import { ChangeEvent, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { ThreeDots } from "react-loader-spinner";
+import Produto from "../../models/Produto";
+import { atualizar, buscar, listar } from "../../services/Service";
+import { ToastAlerta } from "../../utils/ToastAlerta";
+import { Categorias } from "../../models/Categorias";
+
 
 function AtualizarProduto() {
+    const navigate = useNavigate();
+    const [produto, setProduto] = useState<Produto>({} as Produto);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const { id } = useParams<{ id: string }>();  
+    const [categorias, setCategorias] = useState<Categorias[]>([]);
+
+    
+    async function listarProduto(id: string) {
+        try {
+            await listar(`/produtos/${id}`, setProduto);
+        } catch (error: any) {
+            console.error("Erro ao buscar produto:", error.response ?? error);
+            ToastAlerta("Erro ao buscar o produto.", "error");
+            navigate("/produtos");
+        }
+    }
+
+    useEffect(() => {
+        if (id !== undefined) {
+            listarProduto(id);
+        }
+    }, [id]);
+
+
+    function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
+        setProduto({
+            ...produto,
+            [e.target.name]: e.target.value,
+        });
+    }
+
+    function retornar() {
+        navigate("/clientes");
+    }
+
+    
+    async function atualizarProduto(e: ChangeEvent<HTMLFormElement>) {
+        e.preventDefault();
+        setIsLoading(true);
+
+        try {
+          
+            await atualizar('/produtos', { ...produto, id: Number(id) }, setProduto);
+            ToastAlerta("O produto foi atualizada com sucesso!", "success");
+        } catch (error: any) {
+            ToastAlerta("Erro ao atualizar o produto.", "error");
+            console.error(error);
+        }
+
+        setIsLoading(false);
+        retornar();
+    }
+
+    useEffect(() => {
+        async function carregarCategorias() {
+            try {
+                await buscar("/categorias", setCategorias);
+            } catch (error) {
+                ToastAlerta("Erro ao buscar categorias!", "error");
+            }
+        }
+  
+        carregarCategorias();
+      }, []);
+
     return (
-        <>
-            <div className="grid grid-cols-1 lg:grid-cols-2 h-screen 
-            place-items-center font-bold">
-                <div className="fundoAtualizarProduto hidden lg:block"></div>
-                <form className='flex justify-center items-center flex-col w-2/3 gap-3' >
-                    <h2 className="font-inter font-bold text-[48px] mt-[58px]" style={{ color: '#FF8000' }}>Atualize seu cliente</h2>
-                    <div className="flex flex-col w-full">
-                        <label htmlFor="nomeCliente" className="text-[#FF8000]">Nome</label>
+        <div className="flex pt-[100px] min-h-screen bg-white">
+            <div className="w-1/2 flex flex-col justify-center items-center px-12">
+                <h1 className="text-3xl font-bold text-[#FF8000] mb-6 mt-10 text-center">
+                    Atualize o produto
+                </h1>
+
+                <form className="w-full flex flex-col gap-4" onSubmit={atualizarProduto}>
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="descricao" className="text-[#FF8000] font-semibold mb-2">
+                            Nome do Produto
+                        </label>
                         <input
                             type="text"
-                            id="nomeCliente"
-                            name="nomeCliente"
-                            placeholder="Digite o nome do cliente"
-                            className=" rounded-[10px] border border-[#FF800080] bg-[#FF80000A] px-4 py-2"
-
+                            placeholder="Digite o nome do produto"
+                            name="nome"
+                            className="w-full bg-[#f0f0f0] pl-10 pr-4 py-3 rounded-xl shadow-md focus:outline-none focus:ring-2 focus:ring-[#FF8000]"
+                            value={produto.nome}
+                            onChange={atualizarEstado}
                         />
                     </div>
-                    <div className="flex flex-col w-full">
-                        <label htmlFor="segmentoCliente" className="text-[#FF8000]">Segmento</label>
+
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="segmento" className="text-[#FF8000] font-bold mb-0 text-lg">
+                            Segmento
+                        </label>
                         <input
                             type="text"
-                            id="segmentoCliente"
-                            name="segmentoCliente"
-                            placeholder="Digite o segmento do seu cliente"
-                            className=" rounded-[10px] border border-[#FF800080] bg-[#FF80000A] px-4 py-2"
-
-                        />
+                            placeholder="Digite o segmento do cliente"
+                            name="segmento"
+                            className="w-full bg-[#f0f0f0] pl-4 pr-4 py-3 rounded-xl border border-[#FF8000]/50 focus:outline-none focus:ring-2 focus:ring-[#FF8000]"
+                            value={produto.segmento || ""}
+                            onChange={atualizarEstado}
+                        /> 
                     </div>
-                    <div className="flex flex-col w-full">
-                        <label htmlFor="pontoFocalCliente" className="text-[#FF8000]">Ponto Focal</label>
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="segmento" className="text-[#FF8000] font-bold mb-0 text-lg">
+                            Ponto focal
+                        </label>
                         <input
                             type="text"
-                            id="pontoFocalCliente"
-                            name="pontoFocalCliente"
-                            placeholder="Digite o ponto focal do seu cliente"
-                            className=" rounded-[10px] border border-[#FF800080] bg-[#FF80000A] px-4 py-2"
-
-                        />
+                            placeholder="Digite o nome do ponto focal do cliente"
+                            name="pontoFocal"
+                            className="w-full bg-[#f0f0f0] pl-4 pr-4 py-3 rounded-xl border border-[#FF8000]/50 focus:outline-none focus:ring-2 focus:ring-[#FF8000]"
+                            value={produto.pontoFocal || ""}
+                            onChange={atualizarEstado}
+                        /> 
                     </div>
-                    <div className="flex flex-col w-full">
-                        <label htmlFor="valorContratoCliente" className="text-[#FF8000]">Valor do Contrato</label>
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="segmento" className="text-[#FF8000] font-bold mb-0 text-lg">
+                            Valor do contrato
+                        </label>
                         <input
-                            id="valorContratoCliente"
-                            name="valorContratoCliente"
+                            type="number"
                             placeholder="Digite o valor do contrato"
-                            className="rounded-[10px] border border-[#FF800080] bg-[#FF80000A] px-4 py-2"
-
-                        />
+                            name="valorContrato"
+                            className="w-full bg-[#f0f0f0] pl-4 pr-4 py-3 rounded-xl border border-[#FF8000]/50 focus:outline-none focus:ring-2 focus:ring-[#FF8000]"
+                            value={produto.valorContrato || ""}
+                            onChange={atualizarEstado}
+                        /> 
                     </div>
-                    <div className="flex flex-col w-full">
-                        <label htmlFor="temaCliente" className="text-[#FF8000]">Categoria</label>
-                        <input
-                            type="text"
-                            id="temaCliente"
-                            name="temaCliente"
-                            placeholder="Digite uma categoria dentre as cadastradas"
-                            className="rounded-[10px] border border-[#FF800080] bg-[#FF80000A] px-4 py-2"
-
-                        />
-                    </div>
-                    <div className="flex justify-around w-full gap-8">
-                        <button
-                            type='submit'
-                            className='rounded-[10px] text-white bg-[#FF8000] 
-                           hover:bg-[#AD5700] w-1/2 py-2 
-                           flex justify-center'
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="categoria" className="text-[#FF8000] font-bold mb-0 text-lg">
+                            Categoria
+                        </label>
+                        <select
+                            name="categoria"
+                            className="w-full bg-[#f0f0f0] pl-4 pr-4 py-3 rounded-xl border border-[#FF8000]/50 focus:outline-none focus:ring-2 focus:ring-[#FF8000]"
+                            value={produto.categoria?.id || ""}
+                            onChange={(e) => {
+                                const categoriaSelecionada = categorias.find(cat => cat.id === Number(e.target.value));
+                                setProduto({ ...produto, categoria: categoriaSelecionada });
+                            }}
                         >
-                            Atualizar
-                        </button>
+                            <option value="" disabled>Selecione uma categoria</option>
+                            {categorias.map((cat) => (
+                                <option key={cat.id} value={cat.id}>
+                                    {cat.descricao}
+                                </option>
+                            ))}
+                        </select>
                     </div>
+
+                    <button
+                        className="text-white bg-[#FF8000] flex items-center justify-center py-2 px-8 rounded-xl shadow-md mt-4 mx-auto min-w-[150px]"
+                        type="submit"
+                        disabled={isLoading}
+                    >
+                        {isLoading ? (
+                            <ThreeDots color="white" width="30" visible={true} />
+                        ) : (
+                            <span>Atualizar</span>
+                        )}
+                    </button>
                 </form>
             </div>
-        </>
-    )
+      
+            <div className="w-1/2 hidden md:flex justify-center items-center p-0">
+                <img
+                    src="https://ik.imagekit.io/willa/pexels-olly-3756679.jpg?updatedAt=1745179200767 "
+                    alt="Atualizar produto"
+                    className="w-full h-screen object-cover"
+                />
+            </div>
+        </div>
+    );
 }
 
 export default AtualizarProduto;
