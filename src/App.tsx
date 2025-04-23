@@ -3,6 +3,8 @@ import Navbar from './components/navbar/Navbar'
 import Footer from './components/footer/Footer'
 import Home from './pages/home/Home'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import CadastrarProduto from './pages/produto/CadastrarProduto'
+import AtualizarProduto from './pages/produto/AtualizarProduto'
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/home" element={<Home />} />
+              <Route path="/cadastrarproduto" element={<CadastrarProduto />} />
+              <Route path="/atualizarproduto" element={<AtualizarProduto />} />
             </Routes>
           </div>
           <Footer />
