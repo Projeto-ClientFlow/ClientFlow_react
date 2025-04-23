@@ -15,7 +15,7 @@ function ListarProdutos() {
     const listarProduto = async () => {
         setIsLoading(true);
         try {
-            await listar("/clientes", setProdutos);
+            await listar("/produtos", setProdutos);
         } catch (error: any) {
             console.error("Erro ao listar categorias:", error);
         } finally {

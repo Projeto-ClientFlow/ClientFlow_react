@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { RotatingLines } from "react-loader-spinner"
-import Produto from "../../models/Produto"
+import { Produto } from "../../models/Produto"
 import { deletar, listar } from "../../services/Service"
 import { ToastAlerta } from "../../utils/ToastAlerta"
 import { useNavigate, useParams } from "react-router-dom"
@@ -19,7 +19,7 @@ function DeletarProduto() {
 
     async function buscarPorId(id: string) {
         try {
-            await listar(⁠ /produto/${id} ⁠, setProduto)
+            await listar(`/produtos/${id}`, setProduto)
         } catch (error: any) {
             
         }
@@ -35,7 +35,7 @@ function DeletarProduto() {
         setIsLoading(true)
 
         try {
-            await deletar(⁠ /produto/${id} ⁠)
+            await deletar(`/produtos/${id}`)
             ToastAlerta('Produto apagado com sucesso', 'sucesso')
 
         } catch (error: any) {
@@ -47,7 +47,7 @@ function DeletarProduto() {
     }
 
     function retornar() {
-        navigate("/produto")
+        navigate("/clientes")
     }
     
     return (
@@ -64,7 +64,7 @@ function DeletarProduto() {
                 <p className='p-8 text-3xl bg-slate-200 h-full'>{produto.segmento}</p>
                 <p className='p-8 text-3xl bg-slate-200 h-full'>{produto.pontoFocal}</p>
                 <p className='p-8 text-3xl bg-slate-200 h-full'>{produto.valorContrato}</p>
-                <p className='p-8 text-3xl bg-slate-200 h-full'>{produto.categoria}</p>
+                <p className='p-8 text-3xl bg-slate-200 h-full'>{produto.categoria?.descricao}</p>
 
                 <div className="flex">
                     <button 

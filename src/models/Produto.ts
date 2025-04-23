@@ -7,5 +7,5 @@ export interface Produto {
   pontoFocal: string;
   valorContrato: number;
   categoria: Categorias | null;
-  usuario: null;
+  usuario?: null;
 }

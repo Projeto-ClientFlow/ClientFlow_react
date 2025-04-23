@@ -33,7 +33,7 @@ function App() {
             <Route path="/categorias" element={<ListaCategorias />} />
             <Route path="/cadastrarproduto" element={<CadastrarProduto />} />
             <Route path="/atualizarproduto" element={<AtualizarProduto />} />
-            <Route path="/deletarproduto" element={<DeletarProduto />} />
+            <Route path="/deletarproduto/:id" element={<DeletarProduto />} />
             <Route path="/clientes" element={<ListarProdutos />} />
           </Routes>
         </div>
