@@ -19,7 +19,13 @@ export const listar = async <T>(url: string, setDados: (resposta: T) => void) =>
     setDados(resposta.data);
 };
 
+export const buscar = async <T>(url: string, setDados: (resposta: T) => void) => {
+    const resposta = await api.get<T>(url);
+    setDados(resposta.data);
+};
+
 export const deletar = async (url: string) => {
     await api.delete(url)
 
 }
+  

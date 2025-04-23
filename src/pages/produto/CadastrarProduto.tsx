@@ -1,14 +1,15 @@
-import { NumericFormat } from 'react-number-format';
-import './CadastrarProduto.css'
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Produto } from "../../models/Produto";
-// import { Hearts } from "react-loader-spinner";
-import { cadastrar } from "../../services/Services";
+import { Categorias } from "../../models/Categorias";
+import { ThreeDots } from "react-loader-spinner";
+import { cadastrar, buscar } from "../../services/Service";
+import { ToastAlerta } from "../../utils/ToastAlerta";
+import Produto from "../../models/Produto";
 
 function CadastrarProduto() {
     const navigate = useNavigate();
     const [produto, setProduto] = useState<Produto>({} as Produto);
+    const [categorias, setCategorias] = useState<Categorias[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
@@ -19,112 +20,154 @@ function CadastrarProduto() {
     }
 
     function retornar() {
-        navigate("/listarProduto"); 
+        navigate("/clientes"); // garante que vai pra lista!
     }
 
     async function gerarNovoProduto(e: ChangeEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        if (!produto.nomeCliente?.trim()) {
-            alert("Preencha o nome do cliente!");
+        if (!produto.nome?.trim()) {
+            ToastAlerta("Preencha o nome do produto!", "warn");
             return;
         }
 
         setIsLoading(true);
 
         try {
-            await cadastrar(`/cadastrarproduto`, produto, setProduto);
-            alert("O produto foi cadastrado com sucesso!");
+            await cadastrar(`/produto`, produto, setProduto);
+            ToastAlerta("O produto foi cadastrado com sucesso!", "success");
 
             setTimeout(() => {
-                retornar(); 
+                retornar(); // espera um pouco pra deixar o toast aparecer
             }, 1500);
         } catch (error: any) {
-            alert("Erro ao cadastrar o produto.");
+            ToastAlerta("Erro ao cadastrar o produto.", "error");
             console.error(error);
         } finally {
             setIsLoading(false);
         }
     }
-  return (
-    <>
-      <div className="grid grid-cols-1 lg:grid-cols-2 h-screen 
-            place-items-center font-bold">
-        <div className="fundoCadastrarProduto hidden lg:block"></div>
-        <form className='flex justify-center items-center flex-col w-2/3 gap-3' >
-        <h2 className="font-inter font-bold text-[48px] mt-[58px]" style={{ color: '#FF8000' }}>Cadastre seu cliente</h2>
-          <div className="flex flex-col w-full">
-            <label htmlFor="nomeCliente" className="text-[#FF8000]">Nome</label>
-            <input
-              type="text"
-              id="nomeCliente"
-              name="nomeCliente"
-              placeholder="Digite o nome do cliente"
-              className=" rounded-[10px] border border-[#FF800080] bg-[#FF80000A] px-4 py-2"
-             
-            />
-          </div>
-          <div className="flex flex-col w-full">
-          <label htmlFor="segmentoCliente" className="text-[#FF8000]">Segmento</label>
-            <input
-              type="text"
-              id="segmentoCliente"
-              name="segmentoCliente"
-              placeholder="Digite o segmento do seu cliente"
-              className=" rounded-[10px] border border-[#FF800080] bg-[#FF80000A] px-4 py-2"
-             
-            />
-          </div>
-          <div className="flex flex-col w-full">
-          <label htmlFor="pontoFocalCliente" className="text-[#FF8000]">Ponto Focal</label>
-            <input
-              type="text"
-              id="pontoFocalCliente"
-              name="pontoFocalCliente"
-              placeholder="Digite o ponto focal do seu cliente"
-              className=" rounded-[10px] border border-[#FF800080] bg-[#FF80000A] px-4 py-2"
-             
-            />
-          </div>
-          <div className="flex flex-col w-full">
-          <label htmlFor="valorContratoCliente" className="text-[#FF8000]">Valor do Contrato</label>
-          <NumericFormat
-              id="valorContratoCliente"
-              name="valorContratoCliente"
-              placeholder="Digite o valor do contrato"
-              className="rounded-[10px] border border-[#FF800080] bg-[#FF80000A] px-4 py-2"
-              thousandSeparator="."
-              decimalSeparator=","
-              prefix="R$ "
-              decimalScale={2}
-              fixedDecimalScale
-            />
-          </div>
-          <div className="flex flex-col w-full">
-          <label htmlFor="temaCliente" className="text-[#FF8000]">Nome</label>
-            <input
-              type="text"
-              id="temaCliente"
-              name="temaCliente"
-              placeholder="Digite uma categoria dentre as cadastradas"
-              className="rounded-[10px] border border-[#FF800080] bg-[#FF80000A] px-4 py-2"
-             
-            />
-          </div>
-          <div className="flex justify-around w-full gap-8">
-            <button 
-                type='submit'
-                className='rounded-[10px] text-white bg-[#FF8000] 
-                           hover:bg-[#AD5700] w-1/2 py-2
-                           flex justify-center' 
-                >
-              Cadastrar
-            </button>
-          </div>
-        </form>
-      </div>
-    </>
-  )
+
+    useEffect(() => {
+      async function carregarCategorias() {
+          try {
+              await buscar("/categoria", setCategorias);
+          } catch (error) {
+              ToastAlerta("Erro ao buscar categorias!", "error");
+          }
+      }
+
+      carregarCategorias();
+    }, []);
+
+
+    return (
+        <div className="flex pt-[100px] min-h-screen bg-[#f9f9f9]">
+            {/* Coluna do formulário */}
+            <div className="w-full md:w-1/2 flex flex-col justify-center items-center px-12">
+                <h1 className="text-4xl font-bold text-[#FF8000] mb-6 mt-10 text-center">
+                    Cadastre o seu cliente
+                </h1>
+
+                <form className="w-full flex flex-col gap-4" onSubmit={gerarNovoProduto}>
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="descricao" className="text-[#FF8000] font-bold mb-0 text-lg">
+                            Nome
+                        </label>
+                        <input
+                            type="text"
+                            placeholder="Digite o nome do cliente"
+                            name="nome"
+                            className="w-full bg-[#f0f0f0] pl-4 pr-4 py-3 rounded-xl border border-[#FF8000]/50 focus:outline-none focus:ring-2 focus:ring-[#FF8000]"
+                            value={produto.nome || ""}
+                            onChange={atualizarEstado}
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <label htmlFor="segmento" className="text-[#FF8000] font-bold mb-0 text-lg">
+                            Segmento
+                        </label>
+                        <input
+                            type="text"
+                            placeholder="Digite o segmento do cliente"
+                            name="segmento"
+                            className="w-full bg-[#f0f0f0] pl-4 pr-4 py-3 rounded-xl border border-[#FF8000]/50 focus:outline-none focus:ring-2 focus:ring-[#FF8000]"
+                            value={produto.segmento || ""}
+                            onChange={atualizarEstado}
+                        /> 
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="segmento" className="text-[#FF8000] font-bold mb-0 text-lg">
+                            Ponto focal
+                        </label>
+                        <input
+                            type="text"
+                            placeholder="Digite o nome do ponto focal do cliente"
+                            name="pontoFocal"
+                            className="w-full bg-[#f0f0f0] pl-4 pr-4 py-3 rounded-xl border border-[#FF8000]/50 focus:outline-none focus:ring-2 focus:ring-[#FF8000]"
+                            value={produto.pontoFocal || ""}
+                            onChange={atualizarEstado}
+                        /> 
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="segmento" className="text-[#FF8000] font-bold mb-0 text-lg">
+                            Valor do contrato
+                        </label>
+                        <input
+                            type="number"
+                            placeholder="Digite o valor do contrato"
+                            name="valorContrato"
+                            className="w-full bg-[#f0f0f0] pl-4 pr-4 py-3 rounded-xl border border-[#FF8000]/50 focus:outline-none focus:ring-2 focus:ring-[#FF8000]"
+                            value={produto.valorContrato || ""}
+                            onChange={atualizarEstado}
+                        /> 
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="categoria" className="text-[#FF8000] font-bold mb-0 text-lg">
+                            Categoria
+                        </label>
+                        <select
+                            name="categoria"
+                            className="w-full bg-[#f0f0f0] pl-4 pr-4 py-3 rounded-xl border border-[#FF8000]/50 focus:outline-none focus:ring-2 focus:ring-[#FF8000]"
+                            value={produto.categoria?.id || ""}
+                            onChange={(e) => {
+                                const categoriaSelecionada = categorias.find(cat => cat.id === Number(e.target.value));
+                                setProduto({ ...produto, categoria: categoriaSelecionada });
+                            }}
+                        >
+                            <option value="" disabled>Selecione uma categoria</option>
+                            {categorias.map((cat) => (
+                                <option key={cat.id} value={cat.id}>
+                                    {cat.descricao}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <button
+                        className="text-white bg-[#FF8000] flex items-center justify-center py-2 px-8 rounded-xl shadow-md mt-4 mx-auto min-w-[150px]"
+                        type="submit"
+                        disabled={isLoading}
+                    >
+                        {isLoading ? (
+                            <ThreeDots color="white" width="30" visible={true} />
+                        ) : (
+                            <span>Cadastrar</span>
+                        )}
+                    </button>
+                </form>
+            </div>
+
+            {/* Coluna da imagem */}
+            <div className="w-1/2 hidden md:flex justify-center items-center p-0">
+                <img
+                    src="https://ik.imagekit.io/willa/pexels-fauxels-3184416.jpg?updatedAt=1745179200931"
+                    alt="Cadastro do Produto"
+                    className="w-full h-screen object-cover"
+                />
+            </div>
+        </div>
+    );
 }
 
 export default CadastrarProduto;

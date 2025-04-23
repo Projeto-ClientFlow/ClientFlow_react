@@ -1,5 +1,8 @@
+import Produto from "./Produto";
+
 export interface Categorias {
 
-    id: number,
-    descricao: string
+    id?: number| null;
+    descricao: string;
+    produto?: Produto | null;
 }

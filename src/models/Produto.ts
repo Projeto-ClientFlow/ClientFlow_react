@@ -1,11 +1,10 @@
 import { Categorias } from '../models/Categorias'
 
-export interface Produto {
-  id: number;
+export default interface Produto {
+  id?: number|null;
   nome: string;
   segmento: string;
   pontoFocal: string;
   valorContrato: number;
-  categoria: Categorias | null;
-  usuario?: null;
+  categoria?: Categorias | null;
 }
