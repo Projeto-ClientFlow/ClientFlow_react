@@ -103,7 +103,7 @@ function AtualizarCategorias() {
 
             <div className="w-1/2 hidden md:flex justify-center items-center p-0">
                 <img
-                    src=" "
+                    src="https://ik.imagekit.io/willa/pexels-anna-nekrashevich-7552374.jpg?updatedAt=1745179200967"
                     alt="Atualizar categoria"
                     className="w-full h-screen object-cover"
                 />
