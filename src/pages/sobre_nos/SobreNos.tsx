@@ -6,7 +6,7 @@ export default function SobreNos() {
     {
         nome: "Eliane Medeiros",
         foto: "https://avatars.githubusercontent.com/u/100229060?v=4",
-        descricao: "Responsável pelo desenvolvimento da funcionalidade especial dos clientes e pelo deploy do Back-End do site.",
+        descricao: "Em transição de carreira, formada em ADS e QA em formação. Responsável pelo desenvolvimento da funcionalidade especial dos clientes e pelo deploy do Back-End do site.",
         linkedin: "https://www.linkedin.com/in/elianempontes/",
         github: "https://github.com/ElianeMPontes",
     },
@@ -28,7 +28,7 @@ export default function SobreNos() {
     {
       nome: "Willa Evangelista",
       foto: "https://avatars.githubusercontent.com/u/84138876?v=4",
-      descricao: "Responsável pelo design e desenvolvimento da 'Navbar', 'Footer', página 'Sobre Nós' e pelo deploy do Front-End do site.",
+      descricao: "Em transição de carreira, com formação em Engenharia de Software. Responsável pelo design e desenvolvimento da 'Navbar', 'Footer', página 'Sobre Nós' e pelo deploy do Front-End do site.",
       linkedin: "https://www.linkedin.com/in/willaevangelista/",
       github: "https://github.com/willaevangelista",
       linktree: "https://linktr.ee/willaevangelista",
@@ -38,7 +38,7 @@ export default function SobreNos() {
   return (
     <section className="py-12 px-4 bg-gray-50 min-h-screen pt-[140px]">
       <h1 style={{ color: '#FF8000' }} className="text-4xl font-bold font-rubik text-center mb-10 whitespace-wrap">Conheça a Equipe Desenvolvedora</h1>
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2 max-w-3xl mx-auto">
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2 max-w-4xl mx-auto">
         {pessoas.map((pessoa, index) => (
           <div key={index} className="bg-white rounded-2xl shadow-lg p-6 text-center hover:scale-105 transition-transform duration-300">
             <h2 style={{ color: '#FF8000' }} className=" text-2xl font-bold font-rubik mb-2">{pessoa.nome}</h2>
@@ -47,7 +47,7 @@ export default function SobreNos() {
               alt={pessoa.nome}
               className="w-32 h-32 object-cover rounded-full mx-auto mb-4"
             />
-            <p style={{ color: '#666876' }} className="mb-4">{pessoa.descricao}</p>
+            <p style={{ color: '#666876', whiteSpace: 'pre-line' }} className="mb-4">{pessoa.descricao}</p>
             <div className="flex justify-center gap-4">
                 <a href={pessoa.linkedin} target="_blank" className="text-[#FF9B35] hover:text-[#FF8000] transition-colors duration-200 font-rubik">
                     <LinkedinLogo size={48} weight='bold' />

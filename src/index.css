@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+:root {
+    --font-sans: "rubik", sans-serif;
+}
