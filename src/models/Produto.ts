@@ -1,4 +1,4 @@
-import { Categorias } from '../models/Categorias.ts'
+import { Categorias } from '../models/Categorias'
 
 export default interface Produto {
   id: number;

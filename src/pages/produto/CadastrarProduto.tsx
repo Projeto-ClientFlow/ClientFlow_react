@@ -2,9 +2,9 @@ import { NumericFormat } from 'react-number-format';
 import './CadastrarProduto.css'
 import { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import * as Produto from "../../models/Produto";
-import { Hearts } from "react-loader-spinner";
-import { cadastrar } from "../../../services/Service";
+import { Produto } from "../../models/Produto";
+// import { Hearts } from "react-loader-spinner";
+import { cadastrar } from "../../services/Services";
 
 function CadastrarProduto() {
     const navigate = useNavigate();
