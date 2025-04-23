@@ -32,7 +32,7 @@ function App() {
             <Route path="/deletarcategorias/:id" element={<DeletarCategorias />} />
             <Route path="/categorias" element={<ListaCategorias />} />
             <Route path="/cadastrarproduto" element={<CadastrarProduto />} />
-            <Route path="/atualizarproduto" element={<AtualizarProduto />} />
+            <Route path="/atualizarproduto/:id" element={<AtualizarProduto />} />
             <Route path="/deletarproduto/:id" element={<DeletarProduto />} />
             <Route path="/clientes" element={<ListarProdutos />} />
           </Routes>
