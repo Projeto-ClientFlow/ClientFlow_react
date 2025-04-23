@@ -1,4 +1,3 @@
-// CardCategorias.tsx
 import { Link } from "react-router-dom";
 import { Categorias } from "../../../models/Categorias";
 
