@@ -100,11 +100,13 @@ function ListaCategorias() {
                             </button>
                         </div>
 
+                        
+
                         {/* Lista de cards */}
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-4 pb-4">
                             {categoriasFiltradas.map((categoria) => (
                                 <CardCategorias
-                                    key={categoria.id}
+                                    key={Number(categoria.id)}
                                     categorias={categoria}
                                 />
                             ))}

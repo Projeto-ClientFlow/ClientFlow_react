@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Categorias } from "../../../models/Categorias";
-import { Hearts } from "react-loader-spinner";
+import { Hearts, ThreeDots } from "react-loader-spinner";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 import { cadastrar } from "../../../services/Service";
 
@@ -18,7 +18,7 @@ function FormCategorias() {
     }
 
     function retornar() {
-        navigate("/listacategorias"); // garante que vai pra lista!
+        navigate("/categorias"); // garante que vai pra lista!
     }
 
     async function gerarNovaCategoria(e: ChangeEvent<HTMLFormElement>) {
@@ -75,7 +75,7 @@ function FormCategorias() {
                         disabled={isLoading}
                     >
                         {isLoading ? (
-                            <Hearts color="white" width="30" visible={true} />
+                            <ThreeDots color="white" width="30" visible={true} />
                         ) : (
                             <span>Cadastrar</span>
                         )}

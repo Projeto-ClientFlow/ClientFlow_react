@@ -9,14 +9,15 @@ function AtualizarCategorias() {
     const navigate = useNavigate();
     const [categorias, setCategorias] = useState<Categorias>({} as Categorias);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const { id } = useParams<{ id: string }>();
+    const { id } = useParams<{ id: string }>();  // Obtém o id da URL
 
     // Função para listar a categoria existente
     async function listarCategorias(id: string) {
         try {
             await listar(`/categorias/${id}`, setCategorias);
         } catch (error: any) {
-            ToastAlerta("Erro ao buscar a categoria:", error);
+            console.error("Erro ao buscar categoria:", error.response ?? error);
+            ToastAlerta("Erro ao buscar a categoria.", "error");
             navigate("/categorias");
         }
     }
@@ -46,7 +47,8 @@ function AtualizarCategorias() {
         setIsLoading(true);
 
         try {
-            await atualizar(`/categorias/${id}`, categorias, setCategorias);
+            // Envia o id correto da categoria para a API
+            await atualizar('/categorias', { ...categorias, id: Number(id) }, setCategorias);
             ToastAlerta("A categoria foi atualizada com sucesso!", "success");
         } catch (error: any) {
             ToastAlerta("Erro ao atualizar a categoria.", "error");
@@ -59,7 +61,6 @@ function AtualizarCategorias() {
 
     return (
         <div className="flex pt-[100px] min-h-screen bg-white">
-            {/* Coluna do formulário */}
             <div className="w-1/2 flex flex-col justify-center items-center px-12">
                 <h1 className="text-3xl font-bold text-[#FF8000] mb-6 mt-10 text-center">
                     Atualize a categoria
@@ -80,22 +81,19 @@ function AtualizarCategorias() {
                         />
                     </div>
 
-                    {/* Ajustando o botão para ser menor e centralizado */}
                     <button
                         className="text-white bg-[#FF8000] flex items-center justify-center py-2 px-8 rounded-xl shadow-md mt-4 mx-auto"
                         type="submit"
                     >
                         {isLoading ? (
-                            <div className="flex justify-center items-center min-h-screen">
                             <ThreeDots
-                                height="80"
-                                width="80"
+                                height="30"
+                                width="30"
                                 radius="9"
-                                color="#FF8000"  // Cor do spinner
+                                color="#FFF"
                                 ariaLabel="three-dots-loading"
                                 visible={true}
                             />
-                        </div>
                         ) : (
                             <span>Atualizar</span>
                         )}
@@ -103,7 +101,6 @@ function AtualizarCategorias() {
                 </form>
             </div>
 
-            {/* Coluna da imagem */}
             <div className="w-1/2 hidden md:flex justify-center items-center p-0">
                 <img
                     src=" "
