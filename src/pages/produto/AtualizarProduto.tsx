@@ -70,7 +70,7 @@ function AtualizarProduto() {
                            hover:bg-[#AD5700] w-1/2 py-2 
                            flex justify-center'
                         >
-                            Cadastrar
+                            Atualizar
                         </button>
                     </div>
                 </form>

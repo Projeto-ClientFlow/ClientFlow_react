@@ -1,7 +1,51 @@
 import { NumericFormat } from 'react-number-format';
 import './CadastrarProduto.css'
+import { ChangeEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Produto } from "../../models/Produto"
+import { Hearts } from "react-loader-spinner";
+import { cadastrar } from "../../../services/Service";
 
 function CadastrarProduto() {
+    const navigate = useNavigate();
+    const [produto, setProduto] = useState<Produto>({} as Produto);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
+        setProduto({
+            ...produto,
+            [e.target.name]: e.target.value,
+        });
+    }
+
+    function retornar() {
+        navigate("/listarProduto"); 
+    }
+
+    async function gerarNovoProduto(e: ChangeEvent<HTMLFormElement>) {
+        e.preventDefault();
+
+        if (!produto.nomeCliente?.trim()) {
+            alert("Preencha o nome do cliente!");
+            return;
+        }
+
+        setIsLoading(true);
+
+        try {
+            await cadastrar(`/cadastrarproduto`, produto, setProduto);
+            alert("O produto foi cadastrado com sucesso!");
+
+            setTimeout(() => {
+                retornar(); 
+            }, 1500);
+        } catch (error: any) {
+            alert("Erro ao cadastrar o produto.");
+            console.error(error);
+        } finally {
+            setIsLoading(false);
+        }
+    }
   return (
     <>
       <div className="grid grid-cols-1 lg:grid-cols-2 h-screen 
