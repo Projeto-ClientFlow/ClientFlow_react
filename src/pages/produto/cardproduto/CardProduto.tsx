@@ -8,39 +8,58 @@ interface CardProdutoProps {
 function CardProduto({ produto }: CardProdutoProps ) {
     return (
         
-        <div className="bg-white shadow-[0_6px_16px_rgba(0,0,0,0.1)] flex flex-col rounded-2xl overflow-hidden justify-between">
-             <div className="flex flex-col items-center justify-center h-full p-8">
-                 <p className="text-2xl bg-white font-bold text-[#FF8000] text-center">
-                    {produto.nome}
+        <div className="bg-white shadow-[0_6px_16px_rgba(0,0,0,0.1)] flex flex-col rounded-2xl overflow-hidden justify-between p-2">
+             <div className="flex flex-col items-center justify-center h-full p-2">
+                <div className="mt-4">
+                    {produto.valorContrato > 10000 ? (
+                    <img src="https://ik.imagekit.io/willa/coroa.png?updatedAt=1745427272458" alt="Coroa" className="w-10 h-10" />
+                    ) : (
+                    <img src="https://ik.imagekit.io/willa/simbolo-de-diamante%20(1).png?updatedAt=1745427272315" alt="Ícone padrão" className="w-10 h-10" />
+                    )}
+                </div>
+                 <p className="text-2xl bg-white font-bold text-[#FF8000] text-center p-6">
+                    Cliente {produto.nome}
                 </p>
-                <p className="text-2xl bg-white font-bold text-[#FF8000] text-center">
+                <div className="text-1xl bg-white text-[#858690] text-center">
+                    <span className="font-bold"> Segmento: </span>
+                    <span>
                     {produto.segmento}
-                </p>
-                <p className="text-2xl bg-white font-bold text-[#FF8000] text-center">
+                    </span>
+                </div>
+                <div className="text-1xl bg-white text-[#858690] text-center">
+                    <span className="font-bold"> Ponto Focal: </span>
+                    <span>
                     {produto.pontoFocal}
-                </p>
-                <p className="text-2xl bg-white font-bold text-[#FF8000] text-center">
-                    {produto.valorContrato}
-                </p>
-                <p className="text-2xl bg-white font-bold text-[#FF8000] text-center">
+                    </span>
+                </div>
+                <div className="text-1xl bg-white text-[#858690] text-center">
+                    <span className="font-bold">Valor do Contrato: </span>
+                    <span>
+                    R$ {produto.valorContrato},00
+                    </span>
+                </div>
+                <div className="text-1xl bg-white text-[#858690] text-center">
+                    <span className="font-bold">Categoria: </span>
+                    <span>
                     {produto.categoria?.descricao}
-                </p>
+                    </span>
+                </div>
             </div>
-            <div className="flex space-x-4 p-4">
-                <Link
-                    to={`/atualizarproduto/${produto.id}`}
-                    className="w-full text-white bg-[#FF8000] flex items-center justify-center py-2 rounded-xl font-semibold"
-                >
-                    Editar
-                </Link>  
-            </div>
-            <div className="flex space-x-4 p-4">
-                <Link
-                    to={`/deletarproduto/${produto.id}`}
-                    className="w-full text-white bg-[#FF8000] flex items-center justify-center py-2 rounded-xl font-semibold"
-                >
-                    Deletar
-                </Link>  
+            <div className="flex flex-col 1-col">
+                <div className="flex space-x-4 p-4">
+                    <Link
+                        to={`/atualizarproduto/${produto.id}`}
+                        className="w-full text-white bg-[#f29d4b] flex items-center justify-center py-2 rounded-xl font-semibold"
+                    >
+                        Editar
+                    </Link>  
+                    <Link
+                        to={`/deletarproduto/${produto.id}`}
+                        className="w-full text-white bg-[#8C8E98] flex items-center justify-center py-2 rounded-xl font-semibold"
+                    >
+                        Deletar
+                    </Link> 
+                </div>
             </div>
         </div>
     );
