@@ -1,82 +1,69 @@
-import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { Categorias } from "../../../models/Categorias";
 import { listar, deletar } from "../../../services/Service";
-import { Hearts } from "react-loader-spinner";
-import { ToastAlerta } from "../../../utils/ToastAlerta";
 
 function DeletarCategorias() {
-    const [categorias, setCategorias] = useState<Categorias>({} as Categorias);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const { id } = useParams<{ id: string }>();
-    const navigate = useNavigate();
+  const [categoria, setCategoria] = useState<Categorias | null>(null);
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-    async function listarCategorias(id: string) {
-        try {
-            await listar(`/categorias/${id}`, setCategorias);
-        } catch (error: any) {
-            ToastAlerta("Erro ao buscar a categoria:", "error");
-            console.error(error);
-        }
+  useEffect(() => {
+    if (id) {
+      listar(`/categorias/${id}`, setCategoria);
     }
+  }, [id]);
 
-    useEffect(() => {
-        if (id !== undefined) {
-            listarCategorias(id);
-        }
-    }, [id]);
-
-    async function DeletarCategorias() {
-        setIsLoading(true);
-
-        try {
-            await deletar(`/categorias/${id}`);
-            ToastAlerta("Categoria apagada com sucesso!", "success");
-            retornar();
-        } catch (error: any) {
-            ToastAlerta("Erro ao deletar a categoria.", "error");
-            console.error(error);
-        } finally {
-            setIsLoading(false);
-        }
+  const confirmarExclusao = async () => {
+    try {
+      await deletar(`/categorias/${id}`);
+      toast.success("Categoria deletada com sucesso!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      navigate("/listacategorias");
+    } catch (error) {
+      toast.error("Erro ao deletar a categoria 😥", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      console.error(error);
     }
+  };
 
-    function retornar() {
-        navigate("/categorias");
-    }
+  const cancelar = () => {
+    navigate("/listacategorias");
+  };
 
-    return (
-        <div className="container w-1/3 mx-auto">
-            <h1 className="text-4xl text-center my-4 text-[#2E2E2E]">Deletar Categoria</h1>
-            <p className="text-center font-semibold mb-4 text-[#607D8B]">
-                Você tem certeza de que deseja apagar a categoria a seguir?
-            </p>
-            <div className="border border-[#DDE9F4] flex flex-col rounded-2xl overflow-hidden justify-between">
-                <header className="py-4 px-6 bg-[#006D77] text-white font-bold text-2xl">
-                    Categoria
-                </header>
-                <p className="p-8 text-3xl bg-[#d6f2ee] text-[#2E2E2E] h-full">{categorias.descricao}</p>
-                <div className="flex space-x-4 p-4">
-                    <button
-                        className="text-[#2E2E2E] bg-[#FF6B6B] hover:bg-[#e55d5d] w-full py-2 rounded-xl"
-                        onClick={retornar}
-                    >
-                        Não
-                    </button>
-                    <button
-                        className="w-full text-white bg-[#006D77] hover:bg-[#004f4f] flex items-center justify-center py-2 rounded-xl"
-                        onClick={DeletarCategorias}
-                    >
-                        {isLoading ? (
-                            <Hearts color="white" width="24" visible={true} />
-                        ) : (
-                            <span>Sim</span>
-                        )}
-                    </button>
-                </div>
-            </div>
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-[#f8f9fa] pt-[100px]">
+      <div className="bg-white p-8 rounded-2xl shadow-xl max-w-md w-full text-center">
+        <h2 className="text-2xl font-bold text-[#FF8000] mb-4">Tem certeza?</h2>
+        <p className="text-gray-700 mb-6">
+          Deseja realmente deletar a categoria{" "}
+          <span className="font-semibold text-[#0061FF]">
+            {categoria?.descricao}
+          </span>
+          ?
+        </p>
+        <div className="flex space-x-4 justify-center">
+          <button
+            onClick={confirmarExclusao}
+            className="bg-[#FF6B6B] hover:bg-[#e05555] text-white font-semibold py-2 px-6 rounded-xl shadow-md"
+          >
+            Confirmar
+          </button>
+          <button
+            onClick={cancelar}
+            className="bg-gray-400 hover:bg-gray-500 text-white font-semibold py-2 px-6 rounded-xl shadow-md"
+          >
+            Cancelar
+          </button>
         </div>
-    );
+      </div>
+    </div>
+  );
 }
 
 export default DeletarCategorias;

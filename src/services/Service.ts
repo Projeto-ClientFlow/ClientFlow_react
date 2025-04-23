@@ -1,25 +1,25 @@
-import axios from "axios";
+    import axios from "axios";
 
-const api = axios.create({
-    baseURL: ''
-})
+    const api = axios.create({
+        baseURL: 'http://localhost:8080/'
+    })
 
-export const cadastrar = async (url: string, dados: Object, setDados: Function) => {
-    const resposta = await api.post(url, dados)
-    setDados(resposta.data)
-}
-
-export const atualizar = async (url: string, dados: Object, setDados: Function) => {
-    const resposta = await api.put(url, dados)
-    setDados(resposta.data)
-}
-export const listar = async (url: string, setDados: Function) => {
-    const resposta = await api.get(url)
-    setDados(resposta.data)
+    export const cadastrar = async <T>(url: string, dados: T, setDados: (resposta: T) => void) => {
+        const resposta = await api.post<T>(url, dados);
+        setDados(resposta.data);
+    };
     
-}
+    export const atualizar = async <T>(url: string, dados: T, setDados: (resposta: T) => void) => {
+        const resposta = await api.put<T>(url, dados);
+        setDados(resposta.data);
+    };
+    
+    export const listar = async <T>(url: string, setDados: (resposta: T) => void) => {
+        const resposta = await api.get<T>(url);
+        setDados(resposta.data);
+    };
+    
+    export const deletar = async (url: string) => {
+        await api.delete(url)
 
-export const deletar = async (url: string) => {
-    await api.delete(url)
-
-}
+    }

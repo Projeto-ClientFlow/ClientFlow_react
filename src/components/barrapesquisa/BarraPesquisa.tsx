@@ -1,8 +1,4 @@
-    import React from 'react';
-    import { useState } from 'react';
-    import { Hearts } from 'react-loader-spinner';
-    import { useNavigate } from 'react-router-dom';
-    import { Link } from 'react-router-dom';
+
 
     function SearchBar({ onSearch }: { onSearch: (value: string) => void }) {
         return (

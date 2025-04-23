@@ -4,9 +4,16 @@ import Home from "./pages/home/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SobreNos from "./pages/sobre_nos/SobreNos";
 import { ToastContainer } from "react-toastify";
+import ListaCategorias from "./components/categorias/listacategorias/ListaCategorias";
+import CadastrarCategorias from "./components/categorias/cadastrarcategorias/CadastrarCategorias";
+import AtualizarCategorias from "./components/categorias/atualizarcategorias/AtualizarCategorias";
+import DeletarCategorias from "./components/categorias/deletarcategoria/DeletarCategoria";
+
 
 import "react-toastify/dist/ReactToastify.css";
-import ListaCategorias from "./components/categorias/listacategorias/ListaCategorias";
+
+
+
 
 function App() {
   return (
@@ -14,11 +21,14 @@ function App() {
       <ToastContainer />
       <BrowserRouter>
         <Navbar />
-        <div className="min-h-[80vh]">
+        <div className="min-h-[91vh]">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/sobre-nos" element={<SobreNos />} />
+            <Route path="/cadastrarcategorias" element={<CadastrarCategorias />} />
+            <Route path="/atualizarcategorias/:id" element={<AtualizarCategorias />} />
+            <Route path="/deletarcategorias/:id" element={<DeletarCategorias />} />
             <Route path="/categorias" element={<ListaCategorias />} />
           </Routes>
         </div>
