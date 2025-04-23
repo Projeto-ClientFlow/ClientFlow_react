@@ -34,7 +34,7 @@ function CadastrarProduto() {
         setIsLoading(true);
 
         try {
-            await cadastrar(`/produto`, produto, setProduto);
+            await cadastrar(`/produtos`, produto, setProduto);
             ToastAlerta("O produto foi cadastrado com sucesso!", "success");
 
             setTimeout(() => {
@@ -51,7 +51,7 @@ function CadastrarProduto() {
     useEffect(() => {
       async function carregarCategorias() {
           try {
-              await buscar("/categoria", setCategorias);
+              await buscar("/categorias", setCategorias);
           } catch (error) {
               ToastAlerta("Erro ao buscar categorias!", "error");
           }
