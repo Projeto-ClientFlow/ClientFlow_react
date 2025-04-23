@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import { Produto } from "../../models/Produto";
-import { Search } from "lucide-react";
+import { Link, Search } from "lucide-react";
 import { listar } from "../../services/Service";
 import CardProduto from "./cardproduto/CardProduto";
 
@@ -58,7 +58,6 @@ function ListarProdutos() {
             ) : (
                 <div className="flex w-auto pt-[140px] min-h-screen">
                     <div className="flex-1 px-8">
-
                         {/* Título centralizado */}
                         <h1 className="text-3xl font-bold text-[#FF8000] mb-6 text-center">
                             Busque seus clientes
