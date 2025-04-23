@@ -8,7 +8,7 @@ import { cadastrar } from "../../services/Services";
 
 function CadastrarProduto() {
     const navigate = useNavigate();
-    const [produto, setProduto] = useState<Produto.Produto>({} as Produto.Produto);
+    const [produto, setProduto] = useState<Produto>({} as Produto);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {

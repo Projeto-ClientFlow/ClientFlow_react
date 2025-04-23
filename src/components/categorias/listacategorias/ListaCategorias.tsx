@@ -1,16 +1,15 @@
-// ListaCategorias.tsx
 import { useEffect, useState } from "react";
-import { Hearts } from "react-loader-spinner";
+import { ThreeDots } from "react-loader-spinner";
 import { Categorias } from "../../../models/Categorias";
 import CardCategorias from "../cardcategorias/CardCategorias";
-import { listar, deletar } from "../../../services/Service";  // Importando deletar
+import { listar } from "../../../services/Service";  // Removido deletar
 import { Search } from "lucide-react";
-import MenuFixo from "../../menu/Menu";
+import { Link } from "react-router-dom";
 
 function ListaCategorias() {
     const [categorias, setCategorias] = useState<Categorias[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [busca, setBusca] = useState<string>("");
+    const [busca, setBusca] = useState<string>(""); 
     const [categoriasFiltradas, setCategoriasFiltradas] = useState<Categorias[]>([]);
 
     const listarCategorias = async () => {
@@ -25,8 +24,13 @@ function ListaCategorias() {
     };
 
     useEffect(() => {
-        listarCategorias();
-    }, []);
+        setIsLoading(true);
+        setTimeout(() => {
+          listarCategorias();
+          setIsLoading(false);
+        }, 800); // Tempo em ms pra ver o spinner (3 segundos)
+      }, []);
+      
 
     const filtrarCategorias = () => {
         const categoriasFiltradas = categorias.filter((categoria) =>
@@ -39,37 +43,40 @@ function ListaCategorias() {
         setCategoriasFiltradas(categorias);
     }, [categorias]);
 
-    const handleDelete = async (id: string) => {
-        try {
-            // Chamando a função deletar
-            await deletar(`/categorias/${id}`);
-            // Após deletar, re-carregar a lista
-            setCategorias(categorias.filter(categoria => categoria.id !== Number(id)));
-            setCategoriasFiltradas(categoriasFiltradas.filter(categoria => categoria.id !== Number(id)));
-        } catch (error) {
-            console.error("Erro ao deletar categoria:", error);
-        }
-    };
-
     return (
         <>
             {isLoading ? (
-                <Hearts
+                <div className="flex justify-center items-center min-h-screen">
+                <ThreeDots
+                    height="80"
+                    width="80"
+                    radius="9"
+                    color="#FF8000"  // Cor do spinner
+                    ariaLabel="three-dots-loading"
                     visible={true}
-                    height="200"
-                    width="200"
-                    ariaLabel="hearts-loading"
-                    wrapperClass="hearts-wrapper mx-auto"
                 />
+            </div>
             ) : (
                 <div className="flex w-auto pt-[100px] min-h-screen">
                     <div className="flex-1 px-8">
-                        <h1 className="text-3xl font-bold text-[#FF8000] mb-6 mt-10 text-center">
+                        {/* Link para cadastrar categoria centralizado */}
+                        <div className="flex justify-center mb-6">
+                            <Link
+                                to="/cadastrarcategorias"
+                                className="text-white bg-[#FF8000] px-6 py-3 rounded-xl shadow-md text-sm font-semibold hover:bg-[#e67300] transition-colors duration-300"
+                            >
+                                Cadastre sua categoria
+                            </Link>
+                        </div>
+
+                        {/* Título centralizado */}
+                        <h1 className="text-3xl font-bold text-[#FF8000] mb-6 text-center">
                             Busque suas categorias
                         </h1>
 
-                        {/* Barra de pesquisa + botão */}
-                        <div className="flex space-x-4 mb-15 max-w-xl mx-auto w-full">
+                        {/* Barra de pesquisa e botão */}
+                        <div className="flex space-x-4 items-center mb-10 max-w-xl mx-auto w-full">
+                            {/* Barra de pesquisa do lado esquerdo */}
                             <div className="relative w-full">
                                 <Search
                                     className="absolute left-3 top-1/2 transform -translate-y-1/2 text-black"
@@ -84,6 +91,7 @@ function ListaCategorias() {
                                 />
                             </div>
 
+                            {/* Botão de buscar */}
                             <button
                                 className="text-white bg-[#FF8000] flex items-center justify-center py-3 px-6 rounded-xl shadow-md"
                                 onClick={filtrarCategorias}
@@ -92,19 +100,18 @@ function ListaCategorias() {
                             </button>
                         </div>
 
+                        
+
                         {/* Lista de cards */}
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-4 pb-4">
                             {categoriasFiltradas.map((categoria) => (
                                 <CardCategorias
-                                    key={categoria.id}
+                                    key={Number(categoria.id)}
                                     categorias={categoria}
-                                    onDelete={handleDelete}  // Passando handleDelete para o CardCategorias
                                 />
                             ))}
                         </div>
                     </div>
-
-                    <MenuFixo />
                 </div>
             )}
         </>
