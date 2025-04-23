@@ -1,7 +1,7 @@
     import axios from "axios";
 
     const api = axios.create({
-        baseURL: 'http://localhost:8080/'
+        baseURL: 'https://clientflow.onrender.com/'
     })
 
     export const cadastrar = async <T>(url: string, dados: T, setDados: (resposta: T) => void) => {

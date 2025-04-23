@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Categorias } from "../../../models/Categorias";
-import { Hearts } from "react-loader-spinner";
+import { ThreeDots } from "react-loader-spinner";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 import { atualizar, listar } from "../../../services/Service";
 
@@ -86,7 +86,16 @@ function AtualizarCategorias() {
                         type="submit"
                     >
                         {isLoading ? (
-                            <Hearts color="white" width="24" visible={true} />
+                            <div className="flex justify-center items-center min-h-screen">
+                            <ThreeDots
+                                height="80"
+                                width="80"
+                                radius="9"
+                                color="#FF8000"  // Cor do spinner
+                                ariaLabel="three-dots-loading"
+                                visible={true}
+                            />
+                        </div>
                         ) : (
                             <span>Atualizar</span>
                         )}
