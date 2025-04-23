@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Produto } from "../../models/Produto";
 import { listar, deletar } from "../../services/Service";
 import { ToastAlerta } from "../../utils/ToastAlerta";
 import { RotatingLines } from "react-loader-spinner";
+import Produto from "../../models/Produto";
 
 function DeletarProduto() {
   const navigate = useNavigate();
