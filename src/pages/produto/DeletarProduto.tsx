@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { listar, deletar } from "../../services/Service";
 import { ToastAlerta } from "../../utils/ToastAlerta";
-import { RotatingLines } from "react-loader-spinner";
+import { RotatingLines, ThreeDots } from "react-loader-spinner";
 import Produto from "../../models/Produto";
 
 function DeletarProduto() {
@@ -39,9 +39,9 @@ function DeletarProduto() {
 
   return (
     <div className="container w-1/3 mx-auto pt-24">
-      <h1 className="text-4xl text-center my-4 text-[#FF8000] font-bold">Deletar produto</h1>
-      <p className="text-center font-semibold mb-4">
-        Você tem certeza de que deseja apagar o produto a seguir?
+      <h1 className="text-4xl mt-10 text-center my-4 text-[#FF8000] font-bold">Deletar produto</h1>
+      <p className="text-center text-2xl font-semibold mb-4 text-[#73747e]">
+        Você tem certeza de que deseja deletar o produto a seguir?
       </p>
 
       <div className="bg-white shadow-[0_6px_16px_rgba(0,0,0,0.1)] flex flex-col rounded-2xl overflow-hidden justify-between p-2">
@@ -85,25 +85,24 @@ function DeletarProduto() {
         <div className="flex space-x-4 p-4">
           <button
             onClick={() => navigate("/clientes")}
-            className="w-full text-white bg-[#f29d4b] flex items-center justify-center py-2 rounded-xl font-semibold"
+            className="w-full text-white bg-[#FF8000] flex items-center justify-center py-2 rounded-xl font-semibold cursor-pointer hover:bg-[#ff7000]  transition-colors duration-200 font-rubik"
           >
             Não
           </button>
 
           <button
             onClick={deletarProduto}
-            className="w-full text-white bg-[#8C8E98] flex items-center justify-center py-2 rounded-xl font-semibold"
+            className="w-full text-white bg-[#5e5f66] flex items-center justify-center py-2 rounded-xl font-semibold cursor-pointer hover:bg-[#4d4c4c] transition-colors duration-200 font-rubik"
           >
             {isLoading ? (
-              <RotatingLines
-                strokeColor="white"
-                strokeWidth="5"
-                animationDuration="0.75"
-                width="24"
+              <ThreeDots
+                color="white"
+                width="40"
+                height="20"
                 visible={true}
               />
-            ) : (
-              <span>Sim</span>
+              ) : (
+                'Sim'
             )}
           </button>
         </div>

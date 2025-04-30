@@ -25,7 +25,7 @@ function FormCategorias() {
         e.preventDefault();
 
         if (!categorias.descricao?.trim()) {
-            ToastAlerta("Preencha o nome da categoria!", "warn");
+            ToastAlerta("Preencha o nome da categoria!", "info");
             return;
         }
 
@@ -33,13 +33,13 @@ function FormCategorias() {
 
         try {
             await cadastrar(`/categorias`, categorias, setCategorias);
-            ToastAlerta("A categoria foi cadastrada com sucesso!", "success");
+            ToastAlerta("A categoria foi cadastrada com sucesso!", "sucesso");
 
             setTimeout(() => {
                 retornar(); // espera um pouco pra deixar o toast aparecer
             }, 1500);
         } catch (error: any) {
-            ToastAlerta("Erro ao cadastrar a categoria.", "error");
+            ToastAlerta("Erro ao cadastrar a categoria.", "erro");
             console.error(error);
         } finally {
             setIsLoading(false);
@@ -47,7 +47,7 @@ function FormCategorias() {
     }
 
     return (
-        <div className="flex pt-[100px] min-h-screen bg-[#f9f9f9]">
+        <div className="flex min-h-screen bg-[#f9f9f9]">
             {/* Coluna do formulário */}
             <div className="w-full md:w-1/2 flex flex-col justify-center items-center px-12">
                 <h1 className="text-4xl font-bold text-[#FF8000] mb-6 mt-10 text-center">
@@ -70,14 +70,19 @@ function FormCategorias() {
                     </div>
 
                     <button
-                        className="text-white bg-[#FF8000] flex items-center justify-center py-2 px-8 rounded-xl shadow-md mt-4 mx-auto min-w-[150px]"
+                        className="text-white bg-[#FF8000] flex items-center justify-center py-2 px-8 rounded-xl shadow-md mt-4 mx-auto min-w-[150px] hover:bg-[#ff7000] cursor-pointer"
                         type="submit"
                         disabled={isLoading}
                     >
                         {isLoading ? (
-                            <ThreeDots color="white" width="30" visible={true} />
+                            <ThreeDots
+                                color="white"
+                                width="40"
+                                height="20"
+                                visible={true}
+                            />
                         ) : (
-                            <span>Cadastrar</span>
+                            'Cadastrar'
                         )}
                     </button>
                 </form>
@@ -86,9 +91,9 @@ function FormCategorias() {
             {/* Coluna da imagem */}
             <div className="w-1/2 hidden md:flex justify-center items-center p-0">
                 <img
-                    src="https://ik.imagekit.io/larissamata/Screenshot_18.png?updatedAt=1745373937189"
+                    src="https://ik.imagekit.io/willa/pexels-photo-2422287.jpg?updatedAt=1746039683465"
                     alt="Cadastro de categoria"
-                    className="w-full h-screen object-cover"
+                    className="w-full h-screen object-cover object-left"
                 />
             </div>
         </div>

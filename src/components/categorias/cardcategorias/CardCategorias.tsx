@@ -18,7 +18,7 @@ function CardCategorias({ categorias }: CardCategoriasProps) {
             <div className="flex space-x-4 p-4">
                 <Link
                     to={`/categorias/atualizar/${categorias.id}`}
-                    className="w-full text-white bg-[#FF8000] flex items-center justify-center py-2 rounded-xl font-semibold"
+                    className="text-white bg-[#FF8000] flex items-center justify-center py-2 px-8 rounded-xl shadow-md mt-4 mx-auto min-w-[150px] hover:bg-[#ff7000] cursor-pointer"
                 >
                     Editar
                 </Link>

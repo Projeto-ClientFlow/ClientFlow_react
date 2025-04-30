@@ -49,13 +49,13 @@ function CardProduto({ produto }: CardProdutoProps ) {
                 <div className="flex space-x-4 p-4">
                     <Link
                         to={`/atualizarproduto/${produto.id}`}
-                        className="w-full text-white bg-[#f29d4b] flex items-center justify-center py-2 rounded-xl font-semibold"
+                        className="w-full text-white bg-[#FF8000] flex items-center justify-center py-2 rounded-xl font-semibold cursor-pointer hover:bg-[#ff7000]  transition-colors duration-200 font-rubik"
                     >
                         Editar
                     </Link>  
                     <Link
                         to={`/deletarproduto/${produto.id}`}
-                        className="w-full text-white bg-[#8C8E98] flex items-center justify-center py-2 rounded-xl font-semibold"
+                        className="w-full text-white bg-[#5e5f66] flex items-center justify-center py-2 rounded-xl font-semibold cursor-pointer hover:bg-[#4d4c4c] transition-colors duration-200 font-rubik"
                     >
                         Deletar
                     </Link> 

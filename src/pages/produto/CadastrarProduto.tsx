@@ -27,7 +27,7 @@ function CadastrarProduto() {
         e.preventDefault();
 
         if (!produto.nome?.trim()) {
-            ToastAlerta("Preencha o nome do produto!", "warn");
+            ToastAlerta("Preencha o nome do produto!", "info");
             return;
         }
 
@@ -35,13 +35,13 @@ function CadastrarProduto() {
 
         try {
             await cadastrar(`/produtos`, produto, setProduto);
-            ToastAlerta("O produto foi cadastrado com sucesso!", "success");
+            ToastAlerta("O produto foi cadastrado com sucesso!", "sucesso");
 
             setTimeout(() => {
                 retornar(); // espera um pouco pra deixar o toast aparecer
             }, 1500);
         } catch (error: any) {
-            ToastAlerta("Erro ao cadastrar o produto.", "error");
+            ToastAlerta("Erro ao cadastrar o produto.", "erro");
             console.error(error);
         } finally {
             setIsLoading(false);
@@ -53,7 +53,7 @@ function CadastrarProduto() {
           try {
               await buscar("/categorias", setCategorias);
           } catch (error) {
-              ToastAlerta("Erro ao buscar categorias!", "error");
+              ToastAlerta("Erro ao buscar categorias!", "erro");
           }
       }
 
@@ -62,9 +62,9 @@ function CadastrarProduto() {
 
 
     return (
-        <div className="flex pt-[100px] min-h-screen bg-[#f9f9f9]">
+        <div className="flex min-h-screen bg-[#f9f9f9]">
             {/* Coluna do formulário */}
-            <div className="w-full md:w-1/2 flex flex-col justify-center items-center px-12">
+            <div className="w-full md:w-1/2 flex flex-col justify-center items-center px-12 pt-[100px]">
                 <h1 className="text-4xl font-bold text-[#FF8000] mb-6 mt-10 text-center">
                     Cadastre o seu cliente
                 </h1>
@@ -145,14 +145,19 @@ function CadastrarProduto() {
                     </div>
 
                     <button
-                        className="text-white bg-[#FF8000] flex items-center justify-center py-2 px-8 rounded-xl shadow-md mt-4 mx-auto min-w-[150px]"
+                        className="text-white bg-[#FF8000] flex items-center justify-center py-2 px-8 rounded-xl shadow-md mt-4 mx-auto min-w-[150px] mb-10 cursor-pointer hover:bg-[#ff7000]  transition-colors duration-200 font-rubik"
                         type="submit"
                         disabled={isLoading}
                     >
                         {isLoading ? (
-                            <ThreeDots color="white" width="30" visible={true} />
+                            <ThreeDots
+                                color="white"
+                                width="40"
+                                height="20"
+                                visible={true}
+                            />
                         ) : (
-                            <span>Cadastrar</span>
+                            'Cadastrar'
                         )}
                     </button>
                 </form>
@@ -163,7 +168,7 @@ function CadastrarProduto() {
                 <img
                     src="https://ik.imagekit.io/willa/pexels-fauxels-3184416.jpg?updatedAt=1745179200931"
                     alt="Cadastro do Produto"
-                    className="w-full h-screen object-cover"
+                    className="w-full h-[105vh] object-cover object-[80%_center]"
                 />
             </div>
         </div>

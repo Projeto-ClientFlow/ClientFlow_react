@@ -6,19 +6,19 @@ function Home() {
             <img
             src="https://ik.imagekit.io/larissamata/pexels-fauxels-3184405.jpg?updatedAt=1745345320460"
             alt="Imagem Página Home"
-            className="w-full h-full object-cover"
+            className="w-full h-[110vh] object-cover"
             />
 
             {/* Título na imagem */}
             <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center space-y-6">
             <div className="bg-[#FF8000]/60  p-6 rounded-3xl  shadow-lg max-w-4xl border-4 border-[#FF8000]">
-                <h1 className="text-white text-4xl md:text-5xl font-bold">
+                <h1 className="text-white text-4xl md:text-5xl font-bold cursor-default">
                 Gerencie clientes com o ClientFlow
                 </h1>
             </div>
 
             {/* Subtítulo */}
-            <div className="text-white text-2xl md:text-3xl  tracking-wider transform hover:scale-105 transition-all duration-300">
+            <div className="text-white text-2xl md:text-3xl tracking-wider transform hover:scale-105 transition-all duration-300 cursor-default">
                 E destaque seus contratos prioritários, <br />
                 
                 <span className="font-bold"> categorizando-os como VIPs </span>
@@ -27,7 +27,7 @@ function Home() {
         </div>
 
         {/* Conteúdo abaixo da imagem */}
-        <div className="bg-white text-[#8c8e98] py-16 px-4">
+        <div className="bg-white text-[#73747e] py-16 px-4">
             <div className="max-w-8xl mx-auto ">
             <p className="text-lg md:text-md leading-relaxed mb-8">
                 O <span className="text-[#FF8000] font-bold">ClientFlow</span> é um

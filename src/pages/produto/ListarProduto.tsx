@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import { Search } from "lucide-react";
-import { Link } from "react-router-dom";
 import { listar } from "../../services/Service";
 import CardProduto from "./cardproduto/CardProduto";
 import Produto from "../../models/Produto";
@@ -59,23 +58,14 @@ function ListarProdutos() {
             ) : (
                 <div className="flex w-auto pt-[100px] min-h-screen">
                     <div className="flex-1 px-8">
-                        {/* Link para cadastrar categoria centralizado */}
-                        <div className="flex justify-center mb-6">
-                            <Link
-                                to="/cadastrarproduto"
-                                className="text-white bg-[#FF8000] px-6 py-3 rounded-xl shadow-md text-sm font-semibold hover:bg-[#e67300] transition-colors duration-300"
-                            >
-                                Cadastre seu cliente
-                            </Link>
-                        </div>
 
                         {/* Título centralizado */}
-                        <h1 className="text-3xl font-bold text-[#FF8000] mb-6 text-center">
+                        <h1 className="text-3xl px-6 py-3 mt-8 font-bold text-[#FF8000] mb-6 text-center">
                             Busque seus clientes
                         </h1>
 
                         {/* Barra de pesquisa e botão */}
-                        <div className="flex space-x-4 items-center mb-10 max-w-xl mx-auto w-full">
+                        <div className="flex space-x-4 items-center mb-15 max-w-xl mx-auto w-full">
                             {/* Barra de pesquisa do lado esquerdo */}
                             <div className="relative w-full">
                                 <Search
@@ -93,7 +83,7 @@ function ListarProdutos() {
 
                             {/* Botão de buscar */}
                             <button
-                                className="text-white bg-[#FF8000] flex items-center justify-center py-3 px-6 rounded-xl shadow-md"
+                                className="text-white bg-[#FF8000] flex items-center justify-center py-3 px-6 rounded-xl shadow-md hover:bg-[#ff7000] cursor-pointer"
                                 onClick={filtrarProduto}
                             >
                                 <span className="font-semibold">Buscar</span>
@@ -101,7 +91,7 @@ function ListarProdutos() {
                         </div>
 
                         {/* Lista de cards */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-4 pb-4">
+                        <div className="grid grid-cols-1 mb-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-4 pb-4">
                             {produtoFiltrado.map((produto) => (
                                 <CardProduto
                                     key={produto.id}

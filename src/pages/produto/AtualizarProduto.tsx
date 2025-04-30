@@ -20,7 +20,7 @@ function AtualizarProduto() {
             await listar(`/produtos/${id}`, setProduto);
         } catch (error: any) {
             console.error("Erro ao buscar produto:", error.response ?? error);
-            ToastAlerta("Erro ao buscar o produto.", "error");
+            ToastAlerta("Erro ao buscar o produto.", "erro");
             navigate("/produtos");
         }
     }
@@ -51,9 +51,9 @@ function AtualizarProduto() {
         try {
           
             await atualizar('/produtos', { ...produto, id: Number(id) }, setProduto);
-            ToastAlerta("O produto foi atualizada com sucesso!", "success");
+            ToastAlerta("O produto foi atualizado com sucesso!", "sucesso");
         } catch (error: any) {
-            ToastAlerta("Erro ao atualizar o produto.", "error");
+            ToastAlerta("Erro ao atualizar o produto.", "erro");
             console.error(error);
         }
 
@@ -66,7 +66,7 @@ function AtualizarProduto() {
             try {
                 await buscar("/categorias", setCategorias);
             } catch (error) {
-                ToastAlerta("Erro ao buscar categorias!", "error");
+                ToastAlerta("Erro ao buscar categorias!", "erro");
             }
         }
   
@@ -74,8 +74,8 @@ function AtualizarProduto() {
       }, []);
 
     return (
-        <div className="flex pt-[100px] min-h-screen bg-white">
-            <div className="w-1/2 flex flex-col justify-center items-center px-12">
+        <div className="flex min-h-screen bg-white">
+            <div className="w-1/2 flex flex-col justify-center items-center px-12 pt-[100px]">
                 <h1 className="text-3xl font-bold text-[#FF8000] mb-6 mt-10 text-center">
                     Atualize o produto
                 </h1>
@@ -89,7 +89,7 @@ function AtualizarProduto() {
                             type="text"
                             placeholder="Digite o nome do produto"
                             name="nome"
-                            className="w-full bg-[#f0f0f0] pl-10 pr-4 py-3 rounded-xl shadow-md focus:outline-none focus:ring-2 focus:ring-[#FF8000]"
+                            className="w-full bg-[#f0f0f0] pl-4 pr-4 py-3 rounded-xl shadow-md focus:outline-none focus:ring-2 focus:ring-[#FF8000]"
                             value={produto.nome}
                             onChange={atualizarEstado}
                         />
@@ -157,24 +157,29 @@ function AtualizarProduto() {
                     </div>
 
                     <button
-                        className="text-white bg-[#FF8000] flex items-center justify-center py-2 px-8 rounded-xl shadow-md mt-4 mx-auto min-w-[150px]"
+                        className="text-white bg-[#FF8000] flex items-center justify-center py-2 px-8 rounded-xl shadow-md mt-4 mx-auto min-w-[150px] mb-10 cursor-pointer hover:bg-[#ff7000]  transition-colors duration-200 font-rubik"
                         type="submit"
                         disabled={isLoading}
                     >
                         {isLoading ? (
-                            <ThreeDots color="white" width="30" visible={true} />
+                            <ThreeDots
+                                color="white"
+                                width="40"
+                                height="20"
+                                visible={true}
+                            />
                         ) : (
-                            <span>Atualizar</span>
+                            'Atualizar'
                         )}
                     </button>
                 </form>
             </div>
       
-            <div className="w-1/2 hidden md:flex justify-center items-center p-0">
+            <div className="w-1/2 hidden md:flex justify-center items-center p-0 pt-[50px]">
                 <img
-                    src="https://ik.imagekit.io/willa/pexels-olly-3756679.jpg?updatedAt=1745179200767 "
+                    src="https://ik.imagekit.io/willa/pexels-olly-3756679.jpg?updatedAt=1745179200767"
                     alt="Atualizar produto"
-                    className="w-full h-screen object-cover"
+                    className="w-full h-[105vh] object-cover"
                 />
             </div>
         </div>

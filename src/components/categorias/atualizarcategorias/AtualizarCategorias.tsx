@@ -17,7 +17,7 @@ function AtualizarCategorias() {
             await listar(`/categorias/${id}`, setCategorias);
         } catch (error: any) {
             console.error("Erro ao buscar categoria:", error.response ?? error);
-            ToastAlerta("Erro ao buscar a categoria.", "error");
+            ToastAlerta("Erro ao buscar a categoria.", "erro");
             navigate("/categorias");
         }
     }
@@ -49,9 +49,9 @@ function AtualizarCategorias() {
         try {
             // Envia o id correto da categoria para a API
             await atualizar('/categorias', { ...categorias, id: Number(id) }, setCategorias);
-            ToastAlerta("A categoria foi atualizada com sucesso!", "success");
+            ToastAlerta("A categoria foi atualizada com sucesso!", "sucesso");
         } catch (error: any) {
-            ToastAlerta("Erro ao atualizar a categoria.", "error");
+            ToastAlerta("Erro ao atualizar a categoria.", "erro");
             console.error(error);
         }
 
@@ -60,7 +60,7 @@ function AtualizarCategorias() {
     }
 
     return (
-        <div className="flex pt-[100px] min-h-screen bg-white">
+        <div className="flex min-h-screen bg-white">
             <div className="w-1/2 flex flex-col justify-center items-center px-12">
                 <h1 className="text-3xl font-bold text-[#FF8000] mb-6 mt-10 text-center">
                     Atualize a categoria
@@ -68,34 +68,32 @@ function AtualizarCategorias() {
 
                 <form className="w-full flex flex-col gap-4" onSubmit={atualizarCategoria}>
                     <div className="flex flex-col gap-2">
-                        <label htmlFor="descricao" className="text-[#FF8000] font-semibold mb-2">
+                        <label htmlFor="descricao" className="text-[#FF8000] font-bold mb-0 text-lg">
                             Nome da Categoria
                         </label>
                         <input
                             type="text"
                             placeholder="Digite o nome da categoria"
                             name="descricao"
-                            className="w-full bg-[#f0f0f0] pl-10 pr-4 py-3 rounded-xl shadow-md focus:outline-none focus:ring-2 focus:ring-[#FF8000]"
+                            className="w-full bg-[#f0f0f0] pl-5 pr-4 py-3 rounded-xl shadow-md focus:outline-none focus:ring-2 focus:ring-[#FF8000] cursor-pointer"
                             value={categorias.descricao}
                             onChange={atualizarEstado}
                         />
                     </div>
 
                     <button
-                        className="text-white bg-[#FF8000] flex items-center justify-center py-2 px-8 rounded-xl shadow-md mt-4 mx-auto"
+                        className="text-white bg-[#FF8000] flex items-center justify-center py-2 px-8 rounded-xl shadow-md mt-4 mx-auto min-w-[150px] hover:bg-[#ff7000] cursor-pointer"
                         type="submit"
                     >
                         {isLoading ? (
                             <ThreeDots
-                                height="30"
-                                width="30"
-                                radius="9"
-                                color="#FFF"
-                                ariaLabel="three-dots-loading"
+                                color="white"
+                                width="40"
+                                height="20"
                                 visible={true}
                             />
                         ) : (
-                            <span>Atualizar</span>
+                            'Atualizar'
                         )}
                     </button>
                 </form>
@@ -105,7 +103,7 @@ function AtualizarCategorias() {
                 <img
                     src="https://ik.imagekit.io/willa/pexels-anna-nekrashevich-7552374.jpg?updatedAt=1745179200967"
                     alt="Atualizar categoria"
-                    className="w-full h-screen object-cover"
+                    className="w-full h-screen object-cover object-[70%_center]"
                 />
             </div>
         </div>
