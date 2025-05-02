@@ -3,14 +3,18 @@
 # Projeto ClientFlow
 ## Sistema de CRM (Customer Relationship Management)
 
+Clique e acesse a demo do ClientFlow no Youtube!
 
-https://github.com/user-attachments/assets/3db59719-f9c8-4393-9ba8-706c676229ae
+[![Assista à demo do ClientFlow!](https://ik.imagekit.io/willa/Design%20sem%20nome%20(4).png?updatedAt=1746211173500)](https://youtu.be/HInqPNLu2u8)
+
 
 </div>
 
-O projeto **SmartRH** é uma aplicação web desenvolvida com **React** e **Tailwind CSS**, que funciona como a interface visual do sistema de cadastro e gerenciamento de colaboradores, **cuja aplicação em funcionamento pode ser acessada por meio do seguinte link: [Site SmartRH](https://smart-rh-hexdevascode.vercel.app/)**
+O **ClientFlow** é um sistema de gerenciamento de clientes desenvolvido com foco em usabilidade e eficiência. A aplicação possui uma interface moderna construída com **React**, **Tailwind CSS** e **TypeScript** no front-end, integrada a uma API robusta desenvolvida em **Java** com **Spring Boot** no back-end.
 
-> Já o back-end deste projeto pode ser encontrado no seguinte link: [smart-rh_java](https://github.com/willaevangelista/smart-rh_java)
+> **Confira a aplicação em funcionamento pode ser acessada por meio do seguinte link:** [Site ClientFlow](https://client-flow-react-seven.vercel.app/)
+
+> **Já o back-end deste projeto pode ser encontrado no seguinte link:** [ClientFlow](https://github.com/Projeto-ClientFlow/ClientFlow)
 
 ******
 
@@ -42,11 +46,14 @@ O projeto **SmartRH** é uma aplicação web desenvolvida com **React** e **Tail
 
 ## 💡 Conhecimentos Mobilizados
 
+- **Axios**: Consumo de APIs REST de forma eficiente, com tratamento de respostas assíncronas.
 - **React**: Criação de componentes reutilizáveis e responsivos para a construção da interface.
 - **Tailwind CSS**: Estilização da aplicação com classes utilitárias, garantindo agilidade e responsividade.
-- **Componentização**: Separação de responsabilidades com componentes reutilizáveis e de fácil manutenção.
+- **TypeScript**: Aplicação da tipagem estática para maior segurança, legibilidade e escalabilidade do código.
 - **Vite**: Ferramenta de build para aplicações React, proporcionando um ambiente de desenvolvimento ágil.
+- **Componentização**: Separação de responsabilidades com componentes reutilizáveis e de fácil manutenção.
 - **Vercel**: Plataforma utilizada para o deploy da aplicação, permitindo acesso rápido e gratuito à versão em produção.
+- **React Router DOM**: Gerenciamento de rotas de maneira declarativa, permitindo navegação fluida entre páginas da aplicação.
 
 ---
 
@@ -55,27 +62,58 @@ O projeto **SmartRH** é uma aplicação web desenvolvida com **React** e **Tail
 ## 🏗️ Estrutura do Projeto
 
 ```
-smartrh-frontend/
+clientflow/
 ├── public/
+│   ├── assets/
+│   │   └── fonts/
+│   │   └── react.svg
 │   └── index.html
 ├── src/
 │   ├── assets/
 │   ├── components/
-│   │   └── footer
-|   |   |  ├── Footer.tsx
-│   │   ├── layout
-|   |   |  ├── Layout.tsx
-│   │   ├── navbar
-|   |   |  ├── Navbar.tsx
+│   │   ├── barrapesquisa/
+│   │   │   └── BarraPesquisa.tsx
+│   │   ├── categories/
+│   │   │   ├── atualizarcategorias/
+│   │   │   │   └── AtualizarCategorias.tsx
+│   │   │   ├── cadastrarcategorias/
+│   │   │   │   └── CadastrarCategorias.tsx
+│   │   │   ├── cardcategorias/
+│   │   │   │   └── CardCategorias.tsx
+│   │   │   ├── deletarcategorias/
+│   │   │   │   └── DeletarCategorias.tsx
+│   │   │   └── listacategorias/
+│   │   │       └── ListaCategorias.tsx
+│   │   ├── footer/
+│   │   │   └── Footer.tsx
+│   │   ├── menu/
+│   │   │   └── Menu.tsx
+│   │   └── navbar/
+│   │       └── Navbar.tsx
 │   ├── models/
-│   │   └── Card.ts
+│   │   ├── Card.ts
+│   │   ├── Categories.ts
+│   │   ├── Produto.ts
+│   │   └── Tema.ts
 │   ├── pages/
-│   │   └── home
-|   |   |  ├── Home.tsx
-│   │   ├── produto
-|   |   |  ├── Produto.tsx
-│   │   ├── sobre_nos
-|   |   |  ├── SobreNos.tsx
+│   │   ├── home/
+│   │   │   └── Home.tsx
+│   │   ├── produto/
+│   │   │   ├── cardproduto/
+│   │   │   │   └── CardProduto.tsx
+│   │   │   ├── AtualizarProduto.tsx
+│   │   │   ├── CadastrarProduto.tsx
+│   │   │   ├── DeletarProduto.tsx
+│   │   │   └── ListarProduto.tsx
+│   │   ├── sobre_nos/
+│   │   │   └── SobreNos.tsx
+│   │   └── tema/
+│   │       ├── AtualizarTema.tsx
+│   │       ├── CadastrarTema.tsx
+│   │       ├── DeletarTema.tsx
+│   │       └── ListarTema.tsx
+│   ├── services/
+│   │   └── Services.ts
 │   ├── App.tsx
 │   └── index.css
 ├── index.html
@@ -88,14 +126,22 @@ smartrh-frontend/
 <div id='codigoDesenvolvido'/>
 
 ## 📂 Código Desenvolvido
-  
-- **`Home.tsx`**: Página principal da aplicação, onde os componentes são organizados e renderizados.
-  
+
 - **`App.tsx`**: Componente raiz que define a estrutura e roteamento da aplicação.
-  
+- **`Home.tsx`**: Página principal da aplicação, onde os componentes são organizados e renderizados.
+- **`index.css`**: Arquivo de estilização global com configurações base do Tailwind CSS. 
 - **`tailwind.config.js`**: Arquivo de configuração do Tailwind CSS.
-  
 - **`vite.config.js`**: Configuração do Vite como bundler da aplicação.
+- **`Navbar.tsx`** e **`Footer.tsx`**: Componentes fixos de navegação e rodapé, reutilizados em todas as páginas.
+- **`Menu.tsx`** e **`BarraPesquisa.tsx`**: Componentes de navegação e busca, que otimizam a usabilidade do sistema.
+- **`CardCategorias.tsx`**, **`CadastrarCategorias.tsx`**, **`AtualizarCategorias.tsx`**, **`DeletarCategorias.tsx`**, **`ListaCategorias.tsx`**: Conjunto de componentes responsáveis pelas operações de CRUD de categorias.
+- **`CardProduto.tsx`**, **`CadastrarProduto.tsx`**, **`AtualizarProduto.tsx`**, **`DeletarProduto.tsx`**, **`ListarProduto.tsx`**: Componentes do CRUD de produtos com foco em reatividade e responsividade.
+- **`CadastrarTema.tsx`**, **`AtualizarTema.tsx`**, **`DeletarTema.tsx`**, **`ListarTema.tsx`**: Telas dedicadas à gestão de temas, seguindo o mesmo padrão modular e reutilizável.
+- **`SobreNos.tsx`**: Página institucional com informações sobre o projeto e equipe.
+- **`Services.ts`**: Centralização das chamadas HTTP com Axios, facilitando a manutenção e reutilização.
+- **`Card.ts`**, **`Categories.ts`**, **`Produto.ts`**, **`Tema.ts`**: Modelos tipados com TypeScript que representam as entidades da aplicação.
+- **`vite.config.js`**: Configuração do Vite como bundler para otimização do desenvolvimento.
+- **`tailwind.config.js`**: Arquivo de configuração do Tailwind CSS para personalização de estilos e temas.
 
 ---
 
@@ -103,12 +149,15 @@ smartrh-frontend/
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Linguagem**: JavaScript (ES6+)
+- **Linguagem**: JavaScript (ES6+) e TypeScript
 - **Framework**: React
+- **Roteamento**: React Router DOM
 - **Estilização**: Tailwind CSS
 - **Ferramenta de Build**: Vite
 - **Gerenciador de Pacotes**: npx
-
+- **Consumo de API**: Axios
+- **Hospedagem**: Vercel
+  
 ---
 
 <div id='devas'/> 
